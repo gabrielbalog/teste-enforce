@@ -1,0 +1,1 @@
+web: gunicorn "properties:create_app()"
