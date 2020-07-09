@@ -20,6 +20,10 @@ And in the techinal side, these are the requisites:
 - As APIs devem ser padrão restFull e documentadas com Swagger;
 - O código fonte deve ser armazenado em um repositório privado no github (https://github.com) compartilhado com usuário (cenforce).
 
+Access:
+- Documentation: https://teste-enforce.herokuapp.com/api/spec.html
+- API: https://teste-enforce.herokuapp.com/properties
+
 ## Basic Configuration
 
 It's necessary Python 3.6+, and recomended virtualenv, or venv package.
