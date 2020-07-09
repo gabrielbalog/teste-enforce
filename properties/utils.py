@@ -1,3 +1,18 @@
+def get_filter_by_args(model_class, dic_args: dict):
+    filters = []
+    for key, value in dic_args.items():  # type: str, any
+        if key.endswith('__min'):
+            key = key[:-5]
+            filters.append(getattr(model_class, key) >= value)
+        elif key.endswith('__max'):
+            key = key[:-5]
+            filters.append(getattr(model_class, key) <= value)
+        else:
+            filters.append(getattr(model_class, key).like(f'%{value}%'))
+
+    return filters
+
+
 def to_dict(inst, cls):
     """
     Jsonify the sql alchemy query result.
@@ -10,7 +25,8 @@ def to_dict(inst, cls):
             try:
                 d[c.name] = convert[c.type](v)
             except:
-                d[c.name] = "Error:  Failed to covert using ", str(convert[c.type])
+                d[c.name] = "Error:  Failed to covert using ", str(
+                    convert[c.type])
         elif v is None:
             d[c.name] = str()
         else:

@@ -6,8 +6,8 @@ from psycopg2.errors import UniqueViolation
 from flask_restful_swagger import swagger
 from properties import models
 from properties.geocode import gmaps
-from properties.parser import create, update
-
+from properties.parser import create, update, get
+from properties.utils import get_filter_by_args
 
 class Properties(Resource):
     @swagger.operation(
@@ -15,7 +15,13 @@ class Properties(Resource):
         nickname="get",
     )
     def get(self):
-        properties = models.Property.query.all()
+        args = get.parse_args()
+        args = {k: v for k, v in args.items() if v is not None}
+
+        filters = get_filter_by_args(models.Property, args)
+
+        properties = models.Property.query.filter(*filters).all()
+
         return {
             'success': True,
             'count': len(properties),

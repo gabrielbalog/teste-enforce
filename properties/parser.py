@@ -1,5 +1,12 @@
 from flask_restful.reqparse import RequestParser
 
+get = RequestParser()
+get.add_argument('enrollment', type=str, location='args')
+get.add_argument('kind', type=str, location='args')
+get.add_argument('area', type=str, location='args')
+get.add_argument('area__max', type=str, location='args')
+get.add_argument('area__min', type=str, location='args')
+get.add_argument('address', type=str, location='args')
 
 create = RequestParser()
 create.add_argument('enrollment', required=True,
